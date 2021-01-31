@@ -36,6 +36,13 @@
     <Reference Include="MaterialSkin, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\MaterialSkin.0.2.1\lib\MaterialSkin.dll</HintPath>
     </Reference>
+    <Reference Include="MetroFramework, Version=1.2.0.3, Culture=neutral, PublicKeyToken=5f91a84759bf584a, processorArchitecture=MSIL">
+      <HintPath>packages\MetroFramework.RunTime.1.2.0.3\lib\net40-Client\MetroFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="MetroFramework.Design, Version=1.2.0.3, Culture=neutral, PublicKeyToken=5f91a84759bf584a, processorArchitecture=MSIL">
+      <HintPath>packages\MetroFramework.Design.1.2.0.3\lib\net40\MetroFramework.Design.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -44,6 +51,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing.Design" />
     <Reference Include="System.Runtime.WindowsRuntime, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETCore\v4.5\System.Runtime.WindowsRuntime.dll</HintPath>
@@ -68,32 +76,6 @@
     <Compile Include="DTO\ApiResponse.cs" />
     <Compile Include="DTO\FolderResponse.cs" />
     <Compile Include="DTO\UserModel.cs" />
-    <Compile Include="Framework\ClientLockFailedException.cs" />
-    <Compile Include="Framework\CustomData.cs" />
-    <Compile Include="Framework\ETag.cs" />
-    <Compile Include="Framework\FileBasicInfo.cs" />
-    <Compile Include="Framework\FileSystemItemBasicInfo.cs" />
-    <Compile Include="Framework\FolderBasicInfo.cs" />
-    <Compile Include="Framework\FsPath.cs" />
-    <Compile Include="Framework\Locks\Lock.cs" />
-    <Compile Include="Framework\Locks\LockInfo.cs" />
-    <Compile Include="Framework\Locks\LockMode.cs" />
-    <Compile Include="Framework\Logger.cs" />
-    <Compile Include="Framework\Registrar.cs" />
-    <Compile Include="Framework\Syncronyzation\ClientToServerSync.cs" />
-    <Compile Include="Framework\Syncronyzation\FileAttributesExt.cs" />
-    <Compile Include="Framework\Syncronyzation\FullSyncService.cs" />
-    <Compile Include="Framework\Syncronyzation\RemoteStorageRawItem.cs" />
-    <Compile Include="Framework\Syncronyzation\ServerToClientSync.cs" />
-    <Compile Include="Framework\Syncronyzation\UserFileSystemMonitor.cs" />
-    <Compile Include="Framework\Syncronyzation\UserFileSystemRawItem.cs" />
-    <Compile Include="Framework\VfsEngine.cs" />
-    <Compile Include="Framework\VfsFile.cs" />
-    <Compile Include="Framework\VfsFileSystemItem.cs" />
-    <Compile Include="Framework\VfsFolder.cs" />
-    <Compile Include="Framework\VirtualFileSystem\UserFile.cs" />
-    <Compile Include="Framework\VirtualFileSystem\UserFileSystemItem.cs" />
-    <Compile Include="Framework\VirtualFileSystem\UserFolder.cs" />
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -111,6 +93,7 @@
     </Compile>
     <Compile Include="Utils\Helper.cs" />
     <Compile Include="Utils\Mapping.cs" />
+    <Compile Include="WinAPI.cs" />
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>

@@ -22,8 +22,6 @@ namespace GODrive
 
         private string infoPath = Helper.AppDataFilePath();
 
-        private NotifyIcon m_notifyIcon;
-
         string path1 = @"\godrive_app";
 
         string fullPath;
@@ -33,7 +31,6 @@ namespace GODrive
         public Login()
         {
             InitializeComponent();
-            settingNotification();
 
             MaterialSkin.MaterialSkinManager skinManager = MaterialSkin.MaterialSkinManager.Instance;
             skinManager.AddFormToManage(this);
@@ -41,30 +38,28 @@ namespace GODrive
             skinManager.ColorScheme = new MaterialSkin.ColorScheme(MaterialSkin.Primary.Green900, MaterialSkin.Primary.BlueGrey900, MaterialSkin.Primary.Blue500, MaterialSkin.Accent.Orange700, MaterialSkin.TextShade.WHITE);
         }
 
-        private void settingNotification()
+        private void Login_Load(object sender, EventArgs e)
         {
-            m_notifyIcon.Icon = new Icon(SystemIcons.Information, 40, 40);
-            m_notifyIcon.Visible = true;
-            m_notifyIcon.BalloonTipTitle = "God Drive";
-            m_notifyIcon.Text = "God Drive";
+            WinAPI.AnimateWindow(this.Handle, 1000, WinAPI.BLEND);
+
+            this.notifyIcon.Visible = true;
+            this.notifyIcon.BalloonTipTitle = "God Drive";
+            this.notifyIcon.Text = "God Drive";
 
             ContextMenu notificationContextMenu = new ContextMenu();
             notificationContextMenu.MenuItems.Add("Open", new EventHandler(Window_Activated));
             notificationContextMenu.MenuItems.Add("Close", new EventHandler(Window_Deactivated));
 
-            m_notifyIcon.ContextMenu = notificationContextMenu;
-
-            // Handle the DoubleClick event to activate the form.
-            m_notifyIcon.DoubleClick += new System.EventHandler(this.notifyIcon1_DoubleClick);
+            this.notifyIcon.ContextMenu = notificationContextMenu;
         }
 
-        private async void notifyIcon1_DoubleClick(object Sender, EventArgs e)
+        private async void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             string token = await checkTokenToLogin();
             if (token.Length > 0)
             {
-                //UserProfile userProfilePage = new UserProfile();
-                //userProfilePage.Show();
+                UserProfile userProfilePage = new UserProfile();
+                userProfilePage.Show();
             }
             else
             {
@@ -73,15 +68,13 @@ namespace GODrive
             }
         }
 
-
-
         private async void Window_Activated(object sender, EventArgs e)
         {
             string token = await checkTokenToLogin();
             if (token.Length > 0)
             {
-                //UserProfile userProfilePage = new UserProfile();
-                //userProfilePage.Show();
+                UserProfile userProfilePage = new UserProfile();
+                userProfilePage.Show();
             }
             else
             {
@@ -94,16 +87,6 @@ namespace GODrive
         private void Window_Deactivated(object sender, EventArgs e)
         {
             Application.Exit();
-        }
-
-        private void Login_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
         }
 
         private async void btnLogin_Click(object sender, EventArgs e)
@@ -137,9 +120,9 @@ namespace GODrive
 
         private void redirectPage(string token)
         {
-            //UserProfile userProfile = new UserProfile(token);
-            //userProfile.Show();
-            //this.Hide();
+            this.Hide();
+            UserProfile userProfile = new UserProfile(token);
+            userProfile.Show();
         }
 
         private void saveTokenJson(UserModel user)
@@ -207,5 +190,17 @@ namespace GODrive
             return false;
 
         }
+
+        private void showNotification()
+        {
+            const string message = "Token is invalid or expried need to relogin";
+            const string caption = "Notification";
+            var result = MessageBox.Show(message, caption,
+                                            MessageBoxButtons.OK,
+                                            MessageBoxIcon.Information);
+
+        }
+
+
     }
 }

@@ -29,95 +29,114 @@ namespace GODrive
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.lbEmail = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UserProfile));
+            this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
+            this.metroLabel2 = new MetroFramework.Controls.MetroLabel();
+            this.Role = new MetroFramework.Controls.MetroLabel();
+            this.txtEmail = new MetroFramework.Controls.MetroLabel();
+            this.txtName = new MetroFramework.Controls.MetroLabel();
+            this.txtRole = new MetroFramework.Controls.MetroLabel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // label1
+            // metroLabel1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(81, 229);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(54, 22);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Email";
+            this.metroLabel1.AutoSize = true;
+            this.metroLabel1.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.metroLabel1.FontWeight = MetroFramework.MetroLabelWeight.Bold;
+            this.metroLabel1.Location = new System.Drawing.Point(21, 16);
+            this.metroLabel1.Name = "metroLabel1";
+            this.metroLabel1.Size = new System.Drawing.Size(58, 25);
+            this.metroLabel1.TabIndex = 1;
+            this.metroLabel1.Text = "Email";
             // 
-            // label2
+            // metroLabel2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(81, 273);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(57, 22);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Name";
+            this.metroLabel2.AutoSize = true;
+            this.metroLabel2.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.metroLabel2.FontWeight = MetroFramework.MetroLabelWeight.Bold;
+            this.metroLabel2.Location = new System.Drawing.Point(21, 69);
+            this.metroLabel2.Name = "metroLabel2";
+            this.metroLabel2.Size = new System.Drawing.Size(62, 25);
+            this.metroLabel2.TabIndex = 3;
+            this.metroLabel2.Text = "Name";
             // 
-            // label3
+            // Role
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(81, 315);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(47, 22);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "Role";
+            this.Role.AutoSize = true;
+            this.Role.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.Role.FontWeight = MetroFramework.MetroLabelWeight.Bold;
+            this.Role.Location = new System.Drawing.Point(21, 121);
+            this.Role.Name = "Role";
+            this.Role.Size = new System.Drawing.Size(50, 25);
+            this.Role.TabIndex = 5;
+            this.Role.Text = "Role";
+            this.Role.Click += new System.EventHandler(this.Role_Click);
             // 
-            // lbEmail
+            // txtEmail
             // 
-            this.lbEmail.AutoSize = true;
-            this.lbEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbEmail.Location = new System.Drawing.Point(169, 229);
-            this.lbEmail.Name = "lbEmail";
-            this.lbEmail.Size = new System.Drawing.Size(54, 22);
-            this.lbEmail.TabIndex = 3;
-            this.lbEmail.Text = "Email";
+            this.txtEmail.AutoSize = true;
+            this.txtEmail.Location = new System.Drawing.Point(114, 19);
+            this.txtEmail.Name = "txtEmail";
+            this.txtEmail.Size = new System.Drawing.Size(41, 19);
+            this.txtEmail.TabIndex = 6;
+            this.txtEmail.Text = "Email";
             // 
-            // label4
+            // txtName
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(169, 273);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(54, 22);
-            this.label4.TabIndex = 4;
-            this.label4.Text = "Email";
+            this.txtName.AutoSize = true;
+            this.txtName.Location = new System.Drawing.Point(114, 72);
+            this.txtName.Name = "txtName";
+            this.txtName.Size = new System.Drawing.Size(41, 19);
+            this.txtName.TabIndex = 7;
+            this.txtName.Text = "Email";
+            // 
+            // txtRole
+            // 
+            this.txtRole.AutoSize = true;
+            this.txtRole.Location = new System.Drawing.Point(114, 124);
+            this.txtRole.Name = "txtRole";
+            this.txtRole.Size = new System.Drawing.Size(41, 19);
+            this.txtRole.TabIndex = 8;
+            this.txtRole.Text = "Email";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(23, 83);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(128, 128);
+            this.pictureBox1.TabIndex = 9;
+            this.pictureBox1.TabStop = false;
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.lbEmail);
-            this.panel1.Controls.Add(this.label4);
-            this.panel1.Controls.Add(this.panel2);
-            this.panel1.Controls.Add(this.label3);
-            this.panel1.Controls.Add(this.label2);
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Location = new System.Drawing.Point(1, 0);
+            this.panel1.Controls.Add(this.txtEmail);
+            this.panel1.Controls.Add(this.metroLabel1);
+            this.panel1.Controls.Add(this.txtRole);
+            this.panel1.Controls.Add(this.metroLabel2);
+            this.panel1.Controls.Add(this.txtName);
+            this.panel1.Controls.Add(this.Role);
+            this.panel1.Location = new System.Drawing.Point(191, 63);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(317, 451);
-            this.panel1.TabIndex = 5;
-            // 
-            // panel2
-            // 
-            this.panel2.Location = new System.Drawing.Point(319, 0);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(348, 448);
-            this.panel2.TabIndex = 6;
+            this.panel1.Size = new System.Drawing.Size(272, 173);
+            this.panel1.TabIndex = 10;
             // 
             // UserProfile
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(318, 450);
+            this.ClientSize = new System.Drawing.Size(497, 299);
             this.Controls.Add(this.panel1);
+            this.Controls.Add(this.pictureBox1);
             this.Name = "UserProfile";
-            this.Text = "UserProfile";
+            this.Resizable = false;
+            this.Text = "User Profile";
             this.Load += new System.EventHandler(this.UserProfile_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
@@ -126,12 +145,13 @@ namespace GODrive
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label lbEmail;
-        private System.Windows.Forms.Label label4;
+        private MetroFramework.Controls.MetroLabel metroLabel1;
+        private MetroFramework.Controls.MetroLabel metroLabel2;
+        private MetroFramework.Controls.MetroLabel Role;
+        private MetroFramework.Controls.MetroLabel txtEmail;
+        private MetroFramework.Controls.MetroLabel txtName;
+        private MetroFramework.Controls.MetroLabel txtRole;
+        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Panel panel2;
     }
 }

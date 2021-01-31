@@ -17,7 +17,7 @@ using Windows.Storage;
 
 namespace GODrive
 {
-    public partial class UserProfile : Form
+    public partial class UserProfile : MetroFramework.Forms.MetroForm
     {
         RestClient client = new RestClient("https://api.au.godmerch.com");
         private string infoPath = Helper.AppDataFilePath();
@@ -26,9 +26,6 @@ namespace GODrive
         public UserProfile()
         {
             InitializeComponent();
-
-
-
         }
 
         public UserProfile(string token)
@@ -38,12 +35,7 @@ namespace GODrive
             loadFile();
         }
 
-        private void UserProfile_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        protected virtual  void OnInitialized(EventArgs e)
+        protected virtual void OnInitialized(EventArgs e)
         {
 
             personalProvider = new Provider.PersonalProvider();
@@ -83,6 +75,16 @@ namespace GODrive
             this.txtEmail.Text = currentUser.email;
             this.txtName.Text = currentUser.fullName;
             this.txtRole.Text = currentUser.role;
+        }
+
+        private void Role_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void UserProfile_Load(object sender, EventArgs e)
+        {
+            WinAPI.AnimateWindow(this.Handle, 1000, WinAPI.BLEND);
         }
     }
 }

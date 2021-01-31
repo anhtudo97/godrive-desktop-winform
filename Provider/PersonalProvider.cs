@@ -5,15 +5,12 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ITHit.FileSystem.Windows;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
-using VirtualFileSystem;
-using VirtualFileSystem.Syncronyzation;
 using Windows.Security.Cryptography;
 using Windows.Storage;
 using Windows.Storage.Provider;
@@ -111,7 +108,6 @@ namespace GODrive.Provider
                     Directory.CreateDirectory(GetRootPath() + @"/Shared All");
                 }
                 await Task.Run(() => SyncFolder("/shared all"));
-                Watch();
             }
         }
 
@@ -123,20 +119,6 @@ namespace GODrive.Provider
             {
                 Folder folder = folderResponse[i];
                 string folderPath = rootFolderPath + folder.Path.Replace("/", "\\");
-                //if (folder.Tag == "folder")
-                //{
-                //    if (!Directory.Exists(folderPath))
-                //    {
-                //        Directory.CreateDirectory(folderPath);
-                //    }
-                //}
-                //if (folder.Tag == "file")
-                //{
-                //    if (!File.Exists(folderPath))
-                //    {
-                //        api.DownloadFileEmpty(folder.Path, folderPath);
-                //    }
-                //}
                 if (Helper.GetItemType(folder.Name) == "folder")
                 {
                     if (!Directory.Exists(folderPath))
@@ -206,88 +188,6 @@ namespace GODrive.Provider
                 {
                     File.Delete(files[i]);
                 }
-            }
-        }
-
-        public void Watch()
-        {
-            string rootFolderPath = GetRootPath();
-            watcher = new FileSystemWatcher(rootFolderPath);
-            // Watch for changes in LastAccess and LastWrite times, and the renaming of files or directories.
-            watcher.NotifyFilter = NotifyFilters.FileName
-                                    | NotifyFilters.DirectoryName
-                                    | NotifyFilters.Size
-                                    | NotifyFilters.Attributes;
-
-            // Add event handlers.
-            watcher.Changed += OnChanged;
-            watcher.Created += OnCreated;
-            watcher.Deleted += OnDeleted;
-            watcher.Renamed += OnRenamed;
-
-            // Begin watching.
-            watcher.IncludeSubdirectories = true;
-            watcher.EnableRaisingEvents = true;
-            Watching = true;
-        }
-
-        public void StopWatching()
-        {
-            watcher.Dispose();
-            Watching = false;
-        }
-
-        private void OnChanged(object source, FileSystemEventArgs e)
-        {
-            try
-            {
-                string userFileSystemPath = e.FullPath;
-                if (FsPath.Exists(userFileSystemPath) && !FsPath.AvoidSync(userFileSystemPath))
-                {
-                    // Hydrate / dehydrate.
-                    if (new UserFileSystemRawItem(userFileSystemPath).HydrationRequired())
-                    {
-                        Debug.WriteLine("Hydrating", userFileSystemPath);
-                        new PlaceholderFile(userFileSystemPath).Hydrate(0, -1);
-                        Debug.WriteLine("Hydrated succesefully", userFileSystemPath);
-                    }
-                    else if (new UserFileSystemRawItem(userFileSystemPath).DehydrationRequired())
-                    {
-                        Debug.WriteLine("Dehydrating", userFileSystemPath);
-                        new PlaceholderFile(userFileSystemPath).Dehydrate(0, -1);
-                        Debug.WriteLine("Dehydrated succesefully", userFileSystemPath);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine("Hydration/dehydration failed", e.FullPath, null, ex);
-            }
-        }
-
-        private void OnCreated(object source, FileSystemEventArgs e)
-        {
-            // Specify what is done when a file is changed, created, or deleted.
-            if (File.Exists(e.FullPath))
-            {
-                api.UploadFile(e.FullPath);
-            }
-            if (Directory.Exists(e.FullPath))
-            {
-                Console.WriteLine($"Folder: {e.FullPath} {e.ChangeType}");
-            }
-        }
-
-        private void OnRenamed(object source, RenamedEventArgs e)
-        {
-            api.UpdateFileName(GetRemotePath(e.OldFullPath), GetRemotePath(e.FullPath));
-        }
-
-        private static void OnDeleted(object source, FileSystemEventArgs e)
-        {
-            if (Directory.Exists(e.FullPath))
-            {
-                api.DeleteFile(e.FullPath);
             }
         }
     }
