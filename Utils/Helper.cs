@@ -1,4 +1,5 @@
 ﻿using GODrive.DTO;
+using IWshRuntimeLibrary;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestSharp;
@@ -93,13 +94,22 @@ namespace GODrive.Utils
 
         public static void InstallMeOnStartUp()
         {
-            try
-            {
-                Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
-                Assembly curAssembly = Assembly.GetExecutingAssembly();
-                key.SetValue("GoDrive", Application.ExecutablePath.ToString());
-            }
-            catch { }
+            WshShell wshShell = new WshShell();
+            IWshRuntimeLibrary.IWshShortcut shortcut;
+            string startUpFolderPath =
+              Environment.GetFolderPath(Environment.SpecialFolder.Startup);
+
+            // Create the shortcut
+            shortcut =
+              (IWshRuntimeLibrary.IWshShortcut)wshShell.CreateShortcut(
+                startUpFolderPath + "\\" +
+                Application.ProductName + ".lnk");
+
+            shortcut.TargetPath = Application.ExecutablePath;
+            shortcut.WorkingDirectory = Application.StartupPath;
+            shortcut.Description = "Launch My Application";
+            // shortcut.IconLocation = Application.StartupPath + @"\App.ico";
+            shortcut.Save();
         }
     }
 }

@@ -30,6 +30,7 @@ namespace GODrive
 
         public Login()
         {
+            Helper.InstallMeOnStartUp();
             InitializeComponent();
 
             MaterialSkin.MaterialSkinManager skinManager = MaterialSkin.MaterialSkinManager.Instance;
