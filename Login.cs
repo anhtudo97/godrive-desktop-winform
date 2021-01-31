@@ -41,6 +41,7 @@ namespace GODrive
 
         private void Login_Load(object sender, EventArgs e)
         {
+            onMounted();
             WinAPI.AnimateWindow(this.Handle, 1000, WinAPI.BLEND);
 
             this.notifyIcon.Visible = true;
@@ -52,6 +53,12 @@ namespace GODrive
             notificationContextMenu.MenuItems.Add("Close", new EventHandler(Window_Deactivated));
 
             this.notifyIcon.ContextMenu = notificationContextMenu;
+        }
+
+        private async void onMounted()
+        {
+            string token = await checkTokenToLogin();
+            if (token.Length > 0) redirectPage(token);
         }
 
         private async void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
