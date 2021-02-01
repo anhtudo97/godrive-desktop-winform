@@ -16,32 +16,17 @@ using System.Windows.Forms;
 
 namespace GODrive
 {
-    public partial class Login : MaterialSkin.Controls.MaterialForm
+    public partial class Login : MetroFramework.Forms.MetroForm
     {
         RestClient client = new RestClient("https://api.au.godmerch.com");
 
-        private string infoPath = Helper.AppDataFilePath();
-
-        string path1 = @"\godrive_app";
-
-        string fullPath;
-
-        bool isExpried { get; set; }
-
         public Login()
         {
-            Helper.InstallMeOnStartUp();
             InitializeComponent();
-
-            MaterialSkin.MaterialSkinManager skinManager = MaterialSkin.MaterialSkinManager.Instance;
-            skinManager.AddFormToManage(this);
-            skinManager.Theme = MaterialSkin.MaterialSkinManager.Themes.LIGHT;
-            skinManager.ColorScheme = new MaterialSkin.ColorScheme(MaterialSkin.Primary.Green900, MaterialSkin.Primary.BlueGrey900, MaterialSkin.Primary.Blue500, MaterialSkin.Accent.Orange700, MaterialSkin.TextShade.WHITE);
         }
 
         private void Login_Load(object sender, EventArgs e)
         {
-            onMounted();
             WinAPI.AnimateWindow(this.Handle, 1000, WinAPI.BLEND);
 
             this.notifyIcon.Visible = true;
@@ -55,15 +40,9 @@ namespace GODrive
             this.notifyIcon.ContextMenu = notificationContextMenu;
         }
 
-        private async void onMounted()
-        {
-            string token = await checkTokenToLogin();
-            if (token.Length > 0) redirectPage(token);
-        }
-
         private async void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            string token = await checkTokenToLogin();
+            string token = await Helper.CheckTokenToLogin();
             if (token.Length > 0)
             {
                 UserProfile userProfilePage = new UserProfile();
@@ -78,7 +57,7 @@ namespace GODrive
 
         private async void Window_Activated(object sender, EventArgs e)
         {
-            string token = await checkTokenToLogin();
+            string token = await Helper.CheckTokenToLogin();
             if (token.Length > 0)
             {
                 UserProfile userProfilePage = new UserProfile();
@@ -151,64 +130,5 @@ namespace GODrive
             str.Close();
             fs.Close();
         }
-
-        private async Task<string> checkTokenToLogin()
-        {
-            var jsonPath = Path.Combine(Environment.GetEnvironmentVariable("LocalAppData"), infoPath);
-            if (!File.Exists(jsonPath))
-            {
-                return "";
-            }
-            /* Open and write token to file*/
-            FileStream fs = File.Open(jsonPath, FileMode.Open);
-            StreamReader str = new StreamReader(fs);
-            string json = str.ReadToEnd();
-            if (json != "")
-            {
-                UserModel user = JsonConvert.DeserializeObject<UserModel>(json);
-                str.Close();
-                fs.Close();
-                await trackingTokenExpired(user.token);
-                return !isExpried ? user.token : "";
-            }
-            else
-            {
-                return "";
-            }
-
-        }
-
-        private async Task<bool> trackingTokenExpired(string token)
-        {
-            RestRequest request = new RestRequest("profile", Method.GET);
-            request.AddHeader("Content-Type", "application/json");
-            request.AddHeader("Authorization", "Bearer " + token);
-
-            /* Response */
-            IRestResponse response = await client.ExecuteAsync(request);
-            JObject responseJson = JObject.Parse(response.Content);
-            string message = responseJson["message"].ToString();
-
-            if (!response.IsSuccessful)
-            {
-                isExpried = true;
-                showNotification();
-                return true;
-            }
-            return false;
-
-        }
-
-        private void showNotification()
-        {
-            const string message = "Token is invalid or expried need to relogin";
-            const string caption = "Notification";
-            var result = MessageBox.Show(message, caption,
-                                            MessageBoxButtons.OK,
-                                            MessageBoxIcon.Information);
-
-        }
-
-
     }
 }

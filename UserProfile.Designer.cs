@@ -74,7 +74,6 @@ namespace GODrive
             this.Role.Size = new System.Drawing.Size(50, 25);
             this.Role.TabIndex = 5;
             this.Role.Text = "Role";
-            this.Role.Click += new System.EventHandler(this.Role_Click);
             // 
             // txtEmail
             // 

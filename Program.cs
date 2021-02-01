@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GODrive.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,7 +17,23 @@ namespace GODrive
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Login());
+            Helper.InstallMeOnStartUp();
+            OnMounted();
+        }
+
+        static void OnMounted()
+        {
+
+            string token = Helper.CheckTokenToLogin().Result;
+
+            if(token != "")
+            {
+                Application.Run(new UserProfile());
+            }
+            else
+            {
+                Application.Run(new Login());
+            }
         }
     }
 }

@@ -2,15 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
-using System.Threading.Tasks;
-using System.Windows;
 using Windows.Security.Cryptography;
 using Windows.Storage;
 using Windows.Storage.Provider;
@@ -27,8 +20,6 @@ namespace GODrive.Provider
         static string ProviderName = "GODrive - Personal";
         static string RootWithEnv = @"%USERPROFILE%\GODrive\";
         static FileApi api = new FileApi();
-
-        private FileSystemWatcher watcher { get; set; }
         public static string GetRootPath()
         {
             var rootFolderPath = Environment.ExpandEnvironmentVariables(RootWithEnv);
