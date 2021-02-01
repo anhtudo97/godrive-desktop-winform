@@ -26,6 +26,7 @@ namespace GODrive
         public UserProfile()
         {
             InitializeComponent();
+            loadFile();
         }
 
         public UserProfile(string token)
@@ -39,7 +40,6 @@ namespace GODrive
         {
 
             personalProvider = new Provider.PersonalProvider();
-            //Provider.PersonalProvider.Unregister();
             personalProvider.Setup();
         }
 
@@ -75,11 +75,6 @@ namespace GODrive
             this.txtEmail.Text = currentUser.email;
             this.txtName.Text = currentUser.fullName;
             this.txtRole.Text = currentUser.role;
-        }
-
-        private void Role_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void UserProfile_Load(object sender, EventArgs e)

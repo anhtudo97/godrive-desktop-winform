@@ -45,7 +45,7 @@ namespace GODrive
             this.lbEmail.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.lbEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbEmail.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.lbEmail.Location = new System.Drawing.Point(33, 103);
+            this.lbEmail.Location = new System.Drawing.Point(33, 91);
             this.lbEmail.Name = "lbEmail";
             this.lbEmail.Size = new System.Drawing.Size(57, 24);
             this.lbEmail.TabIndex = 0;
@@ -54,7 +54,7 @@ namespace GODrive
             // txtEmail
             // 
             this.txtEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEmail.Location = new System.Drawing.Point(37, 130);
+            this.txtEmail.Location = new System.Drawing.Point(37, 118);
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(291, 27);
             this.txtEmail.TabIndex = 1;
@@ -62,7 +62,7 @@ namespace GODrive
             // txtPassword
             // 
             this.txtPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPassword.Location = new System.Drawing.Point(37, 204);
+            this.txtPassword.Location = new System.Drawing.Point(37, 192);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '*';
             this.txtPassword.Size = new System.Drawing.Size(291, 27);
@@ -74,7 +74,7 @@ namespace GODrive
             this.label1.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.label1.Location = new System.Drawing.Point(33, 177);
+            this.label1.Location = new System.Drawing.Point(33, 165);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(92, 24);
             this.label1.TabIndex = 2;

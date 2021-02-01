@@ -54,7 +54,7 @@ namespace GODrive.Utils
 
         public static async Task<bool> VerifyToken(string token)
         {
-            
+
             RestRequest request = new RestRequest("profile", Method.GET);
             request.AddHeader("Content-Type", "application/json");
             request.AddHeader("Authorization", "Bearer " + token);
@@ -84,11 +84,6 @@ namespace GODrive.Utils
 
         public static string TrimEndingDirectorySeparator(string path)
         {
-            //if (path.EndsWith("\\"))
-            //{
-            //    return path.Substring(0, path.Length - 1);
-            //}
-            //return path;
             return path.TrimEnd(Path.DirectorySeparatorChar);
         }
 
@@ -107,9 +102,64 @@ namespace GODrive.Utils
 
             shortcut.TargetPath = Application.ExecutablePath;
             shortcut.WorkingDirectory = Application.StartupPath;
-            shortcut.Description = "Launch My Application";
+            shortcut.Description = "Launch GOD drive";
             // shortcut.IconLocation = Application.StartupPath + @"\App.ico";
             shortcut.Save();
+        }
+
+        public static async Task<string> CheckTokenToLogin()
+        {
+            string infoPath = Helper.AppDataFilePath();
+
+            string jsonPath = Path.Combine(Environment.GetEnvironmentVariable("LocalAppData"), infoPath);
+            if (!System.IO.File.Exists(jsonPath))
+            {
+                return "";
+            }
+            /* Open and write token to file*/
+            FileStream fs = System.IO.File.Open(jsonPath, FileMode.Open);
+            StreamReader str = new StreamReader(fs);
+            string json = str.ReadToEnd();
+            if (json != "")
+            {
+                UserModel user = JsonConvert.DeserializeObject<UserModel>(json);
+                str.Close();
+                fs.Close();
+                bool isExpried = await TrackingTokenExpired(user.token);
+                return !isExpried ? user.token : "";
+            }
+            else
+            {
+                return "";
+            }
+        }
+
+        public static async Task<bool> TrackingTokenExpired(string token)
+        {
+            RestRequest request = new RestRequest("profile", Method.GET);
+            request.AddHeader("Content-Type", "application/json");
+            request.AddHeader("Authorization", "Bearer " + token);
+
+            /* Response */
+            IRestResponse response = await client.ExecuteAsync(request);
+
+            if (!response.IsSuccessful)
+            {
+                ShowNotification();
+                return true;
+            }
+            return false;
+
+        }
+
+        public static void ShowNotification()
+        {
+            const string message = "Token is invalid or expried need to relogin";
+            const string caption = "Notification";
+            var result = MessageBox.Show(message, caption,
+                                            MessageBoxButtons.OK,
+                                            MessageBoxIcon.Information);
+
         }
     }
 }
