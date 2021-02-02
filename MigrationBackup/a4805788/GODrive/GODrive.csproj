@@ -1,0 +1,281 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{FBF1940A-77D1-4F6B-8E62-2FE89430AFF5}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>GODrive</RootNamespace>
+    <AssemblyName>GODrive</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net, Version=2.0.12.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>packages\log4net.2.0.12\lib\net45\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="MaterialSkin, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\MaterialSkin.0.2.1\lib\MaterialSkin.dll</HintPath>
+    </Reference>
+    <Reference Include="MetroFramework, Version=1.2.0.3, Culture=neutral, PublicKeyToken=5f91a84759bf584a, processorArchitecture=MSIL">
+      <HintPath>packages\MetroFramework.RunTime.1.2.0.3\lib\net40-Client\MetroFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="MetroFramework.Design, Version=1.2.0.3, Culture=neutral, PublicKeyToken=5f91a84759bf584a, processorArchitecture=MSIL">
+      <HintPath>packages\MetroFramework.Design.1.2.0.3\lib\net40\MetroFramework.Design.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.Configuration.5.0.0\lib\net461\Microsoft.Extensions.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.Abstractions, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.Configuration.Abstractions.5.0.0\lib\net461\Microsoft.Extensions.Configuration.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Primitives, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.Primitives.5.0.0\lib\net461\Microsoft.Extensions.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp, Version=106.11.7.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
+      <HintPath>packages\RestSharp.106.11.7\lib\net452\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing.Design" />
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Runtime.CompilerServices.Unsafe.5.0.0\lib\net45\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.WindowsRuntime, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETCore\v4.5\System.Runtime.WindowsRuntime.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Windows">
+      <HintPath>C:\Program Files (x86)\Windows Kits\10\UnionMetadata\10.0.18362.0\Windows.winmd</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Api\FileApi.cs" />
+    <Compile Include="DTO\ApiResponse.cs" />
+    <Compile Include="DTO\FolderResponse.cs" />
+    <Compile Include="DTO\UserModel.cs" />
+    <Compile Include="FileDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FileDialog.Designer.cs">
+      <DependentUpon>FileDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Login.Designer.cs">
+      <DependentUpon>Login.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Provider\PersonalProvider.cs" />
+    <Compile Include="SettingNotificationStrayIcon.cs" />
+    <Compile Include="UserProfile.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserProfile.Designer.cs">
+      <DependentUpon>UserProfile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\Helper.cs" />
+    <Compile Include="VirtualFileSystem\Framework\ClientLockFailedException.cs" />
+    <Compile Include="VirtualFileSystem\Framework\CustomData.cs" />
+    <Compile Include="VirtualFileSystem\Framework\ETag.cs" />
+    <Compile Include="VirtualFileSystem\Framework\FileBasicInfo.cs" />
+    <Compile Include="VirtualFileSystem\Framework\FileSystemItemBasicInfo.cs" />
+    <Compile Include="VirtualFileSystem\Framework\FolderBasicInfo.cs" />
+    <Compile Include="VirtualFileSystem\Framework\FsPath.cs" />
+    <Compile Include="VirtualFileSystem\Framework\Locks\Lock.cs" />
+    <Compile Include="VirtualFileSystem\Framework\Locks\LockInfo.cs" />
+    <Compile Include="VirtualFileSystem\Framework\Locks\LockMode.cs" />
+    <Compile Include="VirtualFileSystem\Framework\Logger.cs" />
+    <Compile Include="VirtualFileSystem\Framework\Registrar.cs" />
+    <Compile Include="VirtualFileSystem\Framework\Syncronyzation\ClientToServerSync.cs" />
+    <Compile Include="VirtualFileSystem\Framework\Syncronyzation\FileAttributesExt.cs" />
+    <Compile Include="VirtualFileSystem\Framework\Syncronyzation\FullSyncService.cs" />
+    <Compile Include="VirtualFileSystem\Framework\Syncronyzation\RemoteStorageRawItem.cs" />
+    <Compile Include="VirtualFileSystem\Framework\Syncronyzation\ServerToClientSync.cs" />
+    <Compile Include="VirtualFileSystem\Framework\Syncronyzation\UserFileSystemMonitor.cs" />
+    <Compile Include="VirtualFileSystem\Framework\Syncronyzation\UserFileSystemRawItem.cs" />
+    <Compile Include="VirtualFileSystem\Framework\VfsEngine.cs" />
+    <Compile Include="VirtualFileSystem\Framework\VfsFile.cs" />
+    <Compile Include="VirtualFileSystem\Framework\VfsFileSystemItem.cs" />
+    <Compile Include="VirtualFileSystem\Framework\VfsFolder.cs" />
+    <Compile Include="VirtualFileSystem\Mapping.cs" />
+    <Compile Include="VirtualFileSystem\obj\Debug\net5.0-windows10.0.19041.0\.NETCoreApp,Version=v5.0.AssemblyAttributes.cs" />
+    <Compile Include="VirtualFileSystem\obj\Debug\net5.0-windows10.0.19041.0\VirtualFileSystem.AssemblyInfo.cs" />
+    <Compile Include="VirtualFileSystem\obj\Release\net5.0-windows10.0.19041.0\.NETCoreApp,Version=v5.0.AssemblyAttributes.cs" />
+    <Compile Include="VirtualFileSystem\obj\Release\net5.0-windows10.0.19041.0\VirtualFileSystem.AssemblyInfo.cs" />
+    <Compile Include="VirtualFileSystem\Program.cs" />
+    <Compile Include="VirtualFileSystem\RemoteStorageMonitor.cs" />
+    <Compile Include="VirtualFileSystem\Settings.cs" />
+    <Compile Include="VirtualFileSystem\UserFile.cs" />
+    <Compile Include="VirtualFileSystem\UserFileSystemItem.cs" />
+    <Compile Include="VirtualFileSystem\UserFolder.cs" />
+    <Compile Include="WinAPI.cs" />
+    <EmbeddedResource Include="FileDialog.resx">
+      <DependentUpon>FileDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Login.resx">
+      <DependentUpon>Login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="UserProfile.resx">
+      <DependentUpon>UserProfile.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <None Include="VirtualFileSystem\appsettings.json" />
+    <None Include="VirtualFileSystem\log4net.config" />
+    <None Include="VirtualFileSystem\obj\Debug\net5.0-windows10.0.19041.0\VirtualFileSystem.AssemblyInfoInputs.cache" />
+    <None Include="VirtualFileSystem\obj\Debug\net5.0-windows10.0.19041.0\VirtualFileSystem.csprojAssemblyReference.cache" />
+    <None Include="VirtualFileSystem\obj\Debug\net5.0-windows10.0.19041.0\VirtualFileSystem.GeneratedMSBuildEditorConfig.editorconfig" />
+    <None Include="VirtualFileSystem\obj\Release\net5.0-windows10.0.19041.0\VirtualFileSystem.AssemblyInfoInputs.cache" />
+    <None Include="VirtualFileSystem\obj\Release\net5.0-windows10.0.19041.0\VirtualFileSystem.GeneratedMSBuildEditorConfig.editorconfig" />
+    <None Include="VirtualFileSystem\README.md" />
+    <None Include="VirtualFileSystem\RemoteStorage\General.docx" />
+    <None Include="VirtualFileSystem\RemoteStorage\Introduction.pptx" />
+    <None Include="VirtualFileSystem\RemoteStorage\Library\Overview.doc" />
+    <None Include="VirtualFileSystem\RemoteStorage\Library\Product.vsd" />
+    <None Include="VirtualFileSystem\RemoteStorage\Library\Project.doc" />
+    <None Include="VirtualFileSystem\RemoteStorage\Library\Vision.doc" />
+    <None Include="VirtualFileSystem\RemoteStorage\Library\Vision.mpp" />
+    <None Include="VirtualFileSystem\RemoteStorage\Products\General.doc" />
+    <None Include="VirtualFileSystem\RemoteStorage\Products\General.vsd" />
+    <None Include="VirtualFileSystem\RemoteStorage\Products\Product.mpp" />
+    <None Include="VirtualFileSystem\RemoteStorage\Project.mpp" />
+    <None Include="VirtualFileSystem\RemoteStorage\Project.pdf" />
+    <None Include="VirtualFileSystem\RemoteStorage\Sales\Australia\Plan.doc" />
+    <None Include="VirtualFileSystem\RemoteStorage\Sales\Australia\Prices.xls" />
+    <None Include="VirtualFileSystem\RemoteStorage\Sales\Canada\Introduction.ppt" />
+    <None Include="VirtualFileSystem\RemoteStorage\Sales\Canada\Prices.xls" />
+    <None Include="VirtualFileSystem\RemoteStorage\Sales\Canada\Product.mpp" />
+    <None Include="VirtualFileSystem\RemoteStorage\Sales\Canada\Stat.xls" />
+    <None Include="VirtualFileSystem\RemoteStorage\Sales\Europe\Stat.xls" />
+    <None Include="VirtualFileSystem\RemoteStorage\Sales\USA\Vision.mpp" />
+    <None Include="VirtualFileSystem\RemoteStorage\Scheme.vsdx" />
+    <None Include="VirtualFileSystem\RemoteStorage\Stat.xlsx" />
+    <None Include="VirtualFileSystem\VirtualFileSystem.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="IWshRuntimeLibrary">
+      <Guid>{F935DC20-1CF0-11D0-ADB9-00C04FD58A0B}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="folder_contacts_15440.ico" />
+    <Content Include="VirtualFileSystem\Images\Down.ico" />
+    <Content Include="VirtualFileSystem\Images\Drive.ico" />
+    <Content Include="VirtualFileSystem\Images\Error.ico" />
+    <Content Include="VirtualFileSystem\Images\Locked.ico" />
+    <Content Include="VirtualFileSystem\Images\LockedByAnotherUser.ico" />
+    <Content Include="VirtualFileSystem\Images\LockedPending.ico" />
+    <Content Include="VirtualFileSystem\Images\Unlocked.ico" />
+    <Content Include="VirtualFileSystem\Images\Up.ico" />
+    <Content Include="VirtualFileSystem\Images\Warning.ico" />
+    <Content Include="VirtualFileSystem\RemoteStorage\Library\Content.txt" />
+    <Content Include="VirtualFileSystem\RemoteStorage\My Directory\Notes.txt" />
+    <Content Include="VirtualFileSystem\RemoteStorage\Notes.txt" />
+    <Content Include="VirtualFileSystem\RemoteStorage\Pictures\Arctic Ice.jpeg" />
+    <Content Include="VirtualFileSystem\RemoteStorage\Pictures\Arctic Sun.jpeg" />
+    <Content Include="VirtualFileSystem\RemoteStorage\Pictures\Autumn.jpeg" />
+    <Content Include="VirtualFileSystem\RemoteStorage\Pictures\Beach.jpeg" />
+    <Content Include="VirtualFileSystem\RemoteStorage\Pictures\Boats.jpeg" />
+    <Content Include="VirtualFileSystem\RemoteStorage\Pictures\Cruise Ship.jpeg" />
+    <Content Include="VirtualFileSystem\RemoteStorage\Pictures\Glacier.jpeg" />
+    <Content Include="VirtualFileSystem\RemoteStorage\Pictures\Hotel.jpeg" />
+    <Content Include="VirtualFileSystem\RemoteStorage\Pictures\Landing Pier.jpeg" />
+    <Content Include="VirtualFileSystem\RemoteStorage\Pictures\Orange in the Mountains.jpeg" />
+    <Content Include="VirtualFileSystem\RemoteStorage\Pictures\River.jpeg" />
+    <Content Include="VirtualFileSystem\RemoteStorage\Pictures\Sunset.jpeg" />
+    <Content Include="VirtualFileSystem\RemoteStorage\Pictures\Windsurfing.jpeg" />
+    <Content Include="VirtualFileSystem\RemoteStorage\Pictures\Yachts.jpeg" />
+    <Content Include="VirtualFileSystem\RemoteStorage\Pictures\Yellow Tree.jpeg" />
+    <Content Include="VirtualFileSystem\RemoteStorage\Readme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="VirtualFileSystem\bin\Debug\net5.0-windows10.0.19041.0\ref\" />
+    <Folder Include="VirtualFileSystem\bin\Release\net5.0-windows10.0.19041.0\ref\" />
+    <Folder Include="VirtualFileSystem\obj\Debug\net5.0-windows10.0.19041.0\ref\" />
+    <Folder Include="VirtualFileSystem\obj\Release\net5.0-windows10.0.19041.0\ref\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

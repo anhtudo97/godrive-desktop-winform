@@ -1,4 +1,5 @@
 ﻿using GODrive.DTO;
+using GODrive.Provider;
 using GODrive.Utils;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -19,9 +20,6 @@ namespace GODrive
 {
     public partial class UserProfile : MetroFramework.Forms.MetroForm
     {
-        RestClient client = new RestClient("https://api.au.godmerch.com");
-        private string infoPath = Helper.AppDataFilePath();
-        Provider.PersonalProvider personalProvider;
 
         public UserProfile()
         {
@@ -29,35 +27,10 @@ namespace GODrive
             loadFile();
         }
 
-        public UserProfile(string token)
-        {
-            InitializeComponent();
-            getUserProfile(token);
-            loadFile();
-        }
-
-        protected virtual void OnInitialized(EventArgs e)
-        {
-
-            personalProvider = new Provider.PersonalProvider();
-            personalProvider.Setup();
-        }
-
-        private async void getUserProfile(string token)
-        {
-            RestRequest request = new RestRequest("profile", Method.GET);
-            request.AddHeader("Content-Type", "application/json");
-            request.AddHeader("Authorization", "Bearer " + token);
-
-            /* Response */
-            IRestResponse response = await client.ExecuteAsync(request);
-            JObject responseJson = JObject.Parse(response.Content);
-            JObject dataUser = (JObject)responseJson["data"];
-        }
 
         private void loadFile()
         {
-            var jsonPath = Path.Combine(Environment.GetEnvironmentVariable("LocalAppData"), infoPath);
+            var jsonPath = Helper.AppDataFilePath();
 
             /* Open and write token to file*/
             FileStream fs = File.Open(jsonPath, FileMode.Open);
@@ -80,6 +53,20 @@ namespace GODrive
         private void UserProfile_Load(object sender, EventArgs e)
         {
             WinAPI.AnimateWindow(this.Handle, 1000, WinAPI.BLEND);
+
+            //PersonalProvider.Setup();
+        }
+
+        private void UserProfile_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = true;
+
+            this.Hide();
+        }
+
+        private void UserProfile_Resize(object sender, EventArgs e)
+        {
+
         }
     }
 }

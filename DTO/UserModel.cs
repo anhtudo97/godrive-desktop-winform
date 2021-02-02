@@ -18,6 +18,8 @@ namespace GODrive.DTO
         public string token { get; set; }
         public string trelloId { get; set; }
 
+        public string path { get; set; }
+
         public static explicit operator UserModel(JObject v)
         {
             throw new NotImplementedException();

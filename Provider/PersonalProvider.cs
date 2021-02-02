@@ -10,38 +10,23 @@ using Windows.Storage.Provider;
 using GODrive.DTO;
 using GODrive.Utils;
 using System.Windows.Forms;
+using Newtonsoft.Json;
 
 namespace GODrive.Provider
 {
     class PersonalProvider
     {
         static bool Watching;
+        static FileApi fileApi = new FileApi();
         static string syncRootId = "GODrive!S-1-1234!Personal";
         static string ProviderName = "GODrive - Personal";
-        static string RootWithEnv = @"%USERPROFILE%\GODrive\";
-        static FileApi api = new FileApi();
-        public static string GetRootPath()
-        {
-            var rootFolderPath = Environment.ExpandEnvironmentVariables(RootWithEnv);
-            return rootFolderPath;
-        }
+        static string FolderUser = Helper.GetUserFolderUserName();
 
-        public static string GetLocalPath(string path)
-        {
-            var rootFolderPath = Environment.ExpandEnvironmentVariables(RootWithEnv);
-            return rootFolderPath + path.Replace("/", "\\");
-        }
+        private FileSystemWatcher watcher { get; set; }
 
-        public static string GetRemotePath(string path)
+        public static async void Register()
         {
-            var rootFolderPath = Environment.ExpandEnvironmentVariables(RootWithEnv);
-            string remotePath = path.Replace(rootFolderPath, "").Replace("\\", "/");
-            return remotePath;
-        }
-
-        public async void Register()
-        {
-            string folderRoot = GetRootPath();
+            string folderRoot = Helper.GetRootPath();
             if (!Directory.Exists(folderRoot))
             {
                 Directory.CreateDirectory(folderRoot);
@@ -84,28 +69,34 @@ namespace GODrive.Provider
             System.Threading.Thread.Sleep(1000);
         }
 
-        public void Unregister()
+        public static void Unregister()
         {
             StorageProviderSyncRootManager.Unregister(syncRootId);
         }
 
-        public async void Setup()
+        public static async void Setup()
         {
             if (!Watching)
             {
+                await Task.Run(() => Unregister());
                 await Task.Run(() => Register());
-                if (!Directory.Exists(GetRootPath() + @"/Shared All"))
+                if (!Directory.Exists(Helper.GetRootPath() + @"/Shared All"))
                 {
-                    Directory.CreateDirectory(GetRootPath() + @"/Shared All");
+                    Directory.CreateDirectory(Helper.GetRootPath() + @"/Shared All");
+                }
+                if (!Directory.Exists(Helper.GetRootPath() + @"/" + FolderUser))
+                {
+                    Directory.CreateDirectory(Helper.GetRootPath() + @"/" + FolderUser);
                 }
                 await Task.Run(() => SyncFolder("/shared all"));
+                await Task.Run(() => SyncFolder("/" + FolderUser));
             }
         }
 
-        public async void SyncFiles()
+        public static async void SyncFiles()
         {
-            string rootFolderPath = GetRootPath();
-            List<Folder> folderResponse = await api.GetFolders("");
+            string rootFolderPath = Helper.GetRootPath();
+            List<Folder> folderResponse = await fileApi.GetFolders("");
             for (int i = 0; i < folderResponse.Count; i++)
             {
                 Folder folder = folderResponse[i];
@@ -121,17 +112,17 @@ namespace GODrive.Provider
                 {
                     if (!File.Exists(folderPath))
                     {
-                        api.DownloadFileEmpty(folder.Path, folderPath);
+                        fileApi.DownloadFileEmpty(folder.Path, folderPath);
                     }
                 }
             }
         }
 
-        public async void SyncFolder(string path)
+        public static async void SyncFolder(string path)
         {
-            string rootFolderPath = GetRootPath();
+            string rootFolderPath = Helper.GetRootPath();
             string fullPath = rootFolderPath + path.Replace("/", "\\");
-            List<Folder> folderResponse = await api.GetFolders(path);
+            List<Folder> folderResponse = await fileApi.GetFolders(path);
 
             // Create files/folders from remote server
             for (int i = 0; i < folderResponse.Count; i++)
@@ -151,7 +142,7 @@ namespace GODrive.Provider
                 {
                     if (!File.Exists(folderPath))
                     {
-                        api.DownloadFileEmpty(folder.Path, folderPath);
+                        fileApi.DownloadFileEmpty(folder.Path, folderPath);
                     }
                 }
             }
@@ -160,8 +151,8 @@ namespace GODrive.Provider
             string[] folders = Directory.GetDirectories(fullPath);
             for (int i = 0; i < folders.Length; i++)
             {
-                string remotePath = GetRemotePath(folders[i]);
-                MessageBox.Show(remotePath);
+                string remotePath = Helper.GetRemotePath(folders[i]);
+                //MessageBox.Show(remotePath);
                 Folder remoteItem = folderResponse.Find(f => f.Path.ToLower().Equals(remotePath.ToLower()));
                 if (remoteItem == null)
                 {
@@ -173,12 +164,65 @@ namespace GODrive.Provider
             string[] files = Directory.GetFiles(fullPath);
             for (int i = 0; i < files.Length; i++)
             {
-                string remotePath = GetRemotePath(files[i]);
+                string remotePath = Helper.GetRemotePath(files[i]);
                 Folder remoteItem = folderResponse.Find(f => f.Path.ToLower().Equals(remotePath.ToLower()));
                 if (remoteItem == null)
                 {
                     File.Delete(files[i]);
                 }
+            }
+        }
+
+        public void Watch()
+        {
+            string rootFolderPath = Helper.GetRootPath();
+            watcher = new FileSystemWatcher(rootFolderPath);
+            // Watch for changes in LastAccess and LastWrite times, and the renaming of files or directories.
+            watcher.NotifyFilter = NotifyFilters.FileName
+                                    | NotifyFilters.DirectoryName
+                                    | NotifyFilters.Size
+                                    | NotifyFilters.Attributes;
+
+            // Add event handlers.
+            watcher.Created += OnCreated;
+            watcher.Deleted += OnDeleted;
+            watcher.Renamed += OnRenamed;
+
+            // Begin watching.
+            watcher.IncludeSubdirectories = true;
+            watcher.EnableRaisingEvents = true;
+            Watching = true;
+        }
+
+        public void StopWatching()
+        {
+            watcher.Dispose();
+            Watching = false;
+        }
+
+        private void OnCreated(object source, FileSystemEventArgs e)
+        {
+            // Specify what is done when a file is changed, created, or deleted.
+            if (File.Exists(e.FullPath))
+            {
+                fileApi.UploadFile(e.FullPath);
+            }
+            if (Directory.Exists(e.FullPath))
+            {
+                Console.WriteLine($"Folder: {e.FullPath} {e.ChangeType}");
+            }
+        }
+
+        private void OnRenamed(object source, RenamedEventArgs e)
+        {
+            fileApi.UpdateFileName(Helper.GetRemotePath(e.OldFullPath), Helper.GetRemotePath(e.FullPath));
+        }
+
+        private static void OnDeleted(object source, FileSystemEventArgs e)
+        {
+            if (Directory.Exists(e.FullPath))
+            {
+                fileApi.DeleteFile(e.FullPath);
             }
         }
     }

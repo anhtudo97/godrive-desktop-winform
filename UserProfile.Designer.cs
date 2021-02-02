@@ -134,7 +134,9 @@ namespace GODrive
             this.Name = "UserProfile";
             this.Resizable = false;
             this.Text = "User Profile";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.UserProfile_FormClosing);
             this.Load += new System.EventHandler(this.UserProfile_Load);
+            this.Resize += new System.EventHandler(this.UserProfile_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

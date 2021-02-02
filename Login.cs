@@ -23,57 +23,24 @@ namespace GODrive
         public Login()
         {
             InitializeComponent();
+            RegistryFeature();
         }
 
         private void Login_Load(object sender, EventArgs e)
         {
             WinAPI.AnimateWindow(this.Handle, 1000, WinAPI.BLEND);
-
-            this.notifyIcon.Visible = true;
-            this.notifyIcon.BalloonTipTitle = "God Drive";
-            this.notifyIcon.Text = "God Drive";
-
-            ContextMenu notificationContextMenu = new ContextMenu();
-            notificationContextMenu.MenuItems.Add("Open", new EventHandler(Window_Activated));
-            notificationContextMenu.MenuItems.Add("Close", new EventHandler(Window_Deactivated));
-
-            this.notifyIcon.ContextMenu = notificationContextMenu;
+            Helper.InstallMeOnStartUp();
         }
 
-        private async void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
+        private void RegistryFeature()
         {
-            string token = await Helper.CheckTokenToLogin();
-            if (token.Length > 0)
+            if (Helper.IsAdministrator())
             {
-                UserProfile userProfilePage = new UserProfile();
-                userProfilePage.Show();
-            }
-            else
-            {
-                Login mainWindow = new Login();
-                mainWindow.Show();
-            }
-        }
+                //Helper.ReRun();
 
-        private async void Window_Activated(object sender, EventArgs e)
-        {
-            string token = await Helper.CheckTokenToLogin();
-            if (token.Length > 0)
-            {
-                UserProfile userProfilePage = new UserProfile();
-                userProfilePage.Show();
+                Helper.RegistryRightClick();
+                Helper.RegistryMultipleOptionUpload();
             }
-            else
-            {
-                Login mainWindow = new Login();
-                mainWindow.Show();
-            }
-        }
-
-
-        private void Window_Deactivated(object sender, EventArgs e)
-        {
-            Application.Exit();
         }
 
         private async void btnLogin_Click(object sender, EventArgs e)
@@ -97,18 +64,21 @@ namespace GODrive
 
         private void saveUser(JObject user)
         {
+
+            string path = Environment.ExpandEnvironmentVariables(@"%USERPROFILE%\GODrive\");
             UserModel userModel = new UserModel();
             userModel.fullName = user["fullName"].ToString();
             userModel.email = user["email"].ToString();
             userModel.role = user["role"].ToString();
             userModel.token = user["token"].ToString();
+            userModel.path = txtPath.Text.Length == 0 ? "" : txtPath.Text;
             saveTokenJson(userModel);
         }
 
         private void redirectPage(string token)
         {
             this.Hide();
-            UserProfile userProfile = new UserProfile(token);
+            UserProfile userProfile = new UserProfile();
             userProfile.Show();
         }
 
@@ -129,6 +99,24 @@ namespace GODrive
             str.Flush();
             str.Close();
             fs.Close();
+        }
+
+        private void btnOpen_Click(object sender, EventArgs e)
+        {
+            using (FolderBrowserDialog fbd = new FolderBrowserDialog() { Description = "Select your path" })
+            {
+                if (fbd.ShowDialog() == DialogResult.OK)
+                {
+                    txtPath.Text = fbd.SelectedPath;
+                }
+            }
+        }
+
+        private void Login_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = true;
+
+            this.Hide();
         }
     }
 }
