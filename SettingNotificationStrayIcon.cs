@@ -80,7 +80,7 @@ namespace GODrive
 
         private void Window_Deactivated(object sender, EventArgs e)
         {
-            Application.Exit();
+            Environment.Exit(-1);
         }
 
     }

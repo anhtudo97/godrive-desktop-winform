@@ -41,12 +41,14 @@ namespace GODrive
 
         private void SettingFolderDialog()
         {
+            string pathIcon = Directory.GetCurrentDirectory().ToString().Split(new[] { "godrive-desktop" }, StringSplitOptions.None)[0] + @"godrive-desktop\folder_contacts_15440.ico";
+            string path = Environment.ExpandEnvironmentVariables(@"%USERPROFILE%\GODrive\");
             listFiles.Clear();
             listView.Items.Clear();
-            txtPath.Text = @"C:\Users\spd09\GODrive";
-            foreach (string item in Directory.GetDirectories(@"C:\Users\spd09\GODrive"))
+            txtPath.Text = path;
+            foreach (string item in Directory.GetDirectories(path))
             {
-                imageList.Images.Add(System.Drawing.Icon.ExtractAssociatedIcon(@"C:\Users\spd09\Desktop\YG Dropbox\Anh Tu Do\My PC (DESKTOP-0URMS93)\Downloads\folder_contacts_15440.ico"));
+                imageList.Images.Add(System.Drawing.Icon.ExtractAssociatedIcon(pathIcon.ToString()));
                 DirectoryInfo fi = new DirectoryInfo(item);
                 listFiles.Add(fi.FullName);
                 listView.Items.Add(fi.Name, imageList.Images.Count - 1);

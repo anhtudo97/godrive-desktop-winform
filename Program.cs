@@ -25,6 +25,9 @@ namespace GODrive
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            string pathIcon = Directory.GetCurrentDirectory().ToString().Split(new[] { "godrive-desktop" }, StringSplitOptions.None)[0] + @"godrive-desktop\folder_contacts_15440.ico";
+            Console.WriteLine(pathIcon);
+
             OnMounted();
         }
 
