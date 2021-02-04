@@ -1,5 +1,6 @@
 ﻿using GODrive.Api;
 using GODrive.Utils;
+using Squirrel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -25,10 +26,19 @@ namespace GODrive
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            string pathIcon = Directory.GetCurrentDirectory().ToString().Split(new[] { "godrive-desktop" }, StringSplitOptions.None)[0] + @"godrive-desktop\folder_contacts_15440.ico";
-            Console.WriteLine(pathIcon);
+
+            //UpdateApplication();
 
             OnMounted();
+        }
+
+        async static void UpdateApplication()
+        {
+            string[] pathProject = Environment.CurrentDirectory.ToString().Split(new string[] { "godrive-desktop" }, StringSplitOptions.None);
+            using (var mgr = new UpdateManager(pathProject[0] + @"\godrive-desktop\"))
+            {
+                await mgr.UpdateApp();
+            }
         }
 
         static void OnMounted()
@@ -47,11 +57,12 @@ namespace GODrive
                 {
                     if (args[1].Contains("other-file"))
                     {
+                       
                         Application.Run(new FileDialog(filePath[0]));
                     }
                     else
                     {
-                        SaveFile(args[1]);
+                        SaveFile((filePath[0]));
                         return;
                     }
                 }
@@ -62,7 +73,7 @@ namespace GODrive
             }
             else
             {
-                if (token != "" && !isExpire)
+                if (token != "")
                 {
                     Application.Run(new UserProfile());
                 }
@@ -73,10 +84,10 @@ namespace GODrive
             }
         }
 
-        static async void SaveFile(string path)
+        static void SaveFile(string path)
         {
-            await fileApi.UploadFileRightClick(path, "shared all");
-            Application.Exit();
+            fileApi.UploadFileRightClick(path, "shared all");
+            Environment.Exit(-1);
         }
 
         static void SettingTrayIcon()

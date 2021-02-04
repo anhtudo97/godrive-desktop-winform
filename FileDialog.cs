@@ -41,14 +41,14 @@ namespace GODrive
 
         private void SettingFolderDialog()
         {
-            string pathIcon = Directory.GetCurrentDirectory().ToString().Split(new[] { "godrive-desktop" }, StringSplitOptions.None)[0] + @"godrive-desktop\folder_contacts_15440.ico";
+            //string pathIcon = Directory.GetCurrentDirectory().ToString().Split(new[] { "godrive-desktop" }, StringSplitOptions.None)[0] + @"godrive-desktop\folder_contacts_15440.ico";
             string path = Environment.ExpandEnvironmentVariables(@"%USERPROFILE%\GODrive\");
             listFiles.Clear();
             listView.Items.Clear();
             txtPath.Text = path;
             foreach (string item in Directory.GetDirectories(path))
             {
-                imageList.Images.Add(System.Drawing.Icon.ExtractAssociatedIcon(pathIcon.ToString()));
+                //imageList.Images.Add(System.Drawing.Icon.ExtractAssociatedIcon(item));
                 DirectoryInfo fi = new DirectoryInfo(item);
                 listFiles.Add(fi.FullName);
                 listView.Items.Add(fi.Name, imageList.Images.Count - 1);
@@ -118,7 +118,7 @@ namespace GODrive
 
         }
 
-        private async void btnUpload_Click(object sender, EventArgs e)
+        private void btnUpload_Click(object sender, EventArgs e)
         {
             btnOpen.Enabled = false;
             btnUpload.Enabled = false;
@@ -134,7 +134,7 @@ namespace GODrive
                 foreach (string file in unique_items)
                 {
                     FileInfo fi = new FileInfo(file);
-                    await fileApi.UploadFileRightClick(Path.GetFullPath(fi.FullName), "shared all");
+                    fileApi.UploadFileRightClick(Path.GetFullPath(fi.FullName), "shared all");
                 }
 
                 listView.SelectedItems.Clear();
@@ -142,7 +142,7 @@ namespace GODrive
             else
             {
                 string folder = listFiles[listView.FocusedItem.Index].Split('\\')[listFiles[listView.FocusedItem.Index].Split('\\').Length - 1].ToLower();
-                await fileApi.UploadFileRightClick(Path.GetFullPath(this.pathUpload), folder);
+                fileApi.UploadFileRightClick(Path.GetFullPath(this.pathUpload), folder);
             }
             btnOpen.Enabled = true;
             btnUpload.Enabled = true;

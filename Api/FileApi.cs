@@ -148,7 +148,7 @@ namespace GODrive.Api
             }
         }
 
-        public async Task UploadFileRightClick(string fileLocalPath, string folderUpload)
+        public void UploadFileRightClick(string fileLocalPath, string folderUpload)
         {
             string[] filePaths = fileLocalPath.Split('\\');
             var request = new RestRequest("/files/upload", Method.POST);
@@ -158,11 +158,16 @@ namespace GODrive.Api
             request.AddFile("file", fileLocalPath);
             request.AddParameter("path", "/" + folderUpload.ToLower() + "/" + filePaths[filePaths.Length - 1].ToLower());
 
-            IRestResponse response = await client.ExecuteAsync(request);
+            IRestResponse response = client.Execute(request);
+
             if (!response.IsSuccessful)
             {
                 MessageBox.Show("Upload file failed, file: " + "/shared all/" + filePaths[filePaths.Length - 1] + " " + response.Content + "\nReason: " + response.ErrorMessage);
                 Debug.WriteLine(JsonConvert.SerializeObject(response));
+            }
+            else
+            {
+                MessageBox.Show("Upload file: " + "/shared all/" + filePaths[filePaths.Length - 1] );
             }
 
         }
